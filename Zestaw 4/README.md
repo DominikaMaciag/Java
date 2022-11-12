@@ -2,15 +2,15 @@
  Napisz program składający się z następujących klas: 
  
  **Klasa Cryptographer**, zawierająca niestepujące pola i metody: <br />
-:point_right: statyczna metoda cryptfile, przyjmująca jako parametry plik do zaszyfrowania, plik w którym powinien zostać zapisany zaszyfrowany tekst oraz referencje do typu Algorithm <br />
+- statyczna metoda cryptfile, przyjmująca jako parametry plik do zaszyfrowania, plik w którym powinien zostać zapisany zaszyfrowany tekst oraz referencje do typu Algorithm <br />
 public void cryptfile(String path_to_file_in, String path_to_file_out, Algorithm algorithm) <br />
-:point_right: statyczna metoda decryptfile działająca odwrotnie do cryptfile <br />
+- statyczna metoda decryptfile działająca odwrotnie do cryptfile <br />
 public void decryptfile(String path_to_file_in, String path_to_file_out, Algorithm algorithm)
 
 **Interfejs Algorithm** posiadający następujące metody: <br />
-:point_right: metoda crypt szyfrująca pojedyncze słowo i zwracająca jego zaszyfrowana postać: <br />
+- metoda crypt szyfrująca pojedyncze słowo i zwracająca jego zaszyfrowana postać: <br />
 public String crypt(String inputWord) <br />
-:point_right: metoda decrypt deszyfrująca pojedyncze słowo i zawracająca jego odszyfrowaną postać: <br />
+- metoda decrypt deszyfrująca pojedyncze słowo i zawracająca jego odszyfrowaną postać: <br />
 public String decrypt(String inputWord)
 
 **Klasa ROT11** implementująca interfejs Algorithm <br />
