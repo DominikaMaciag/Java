@@ -2,21 +2,36 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        // Cryptographer obj1 = new Cryptographer();
-        // obj1.cryptfile("tocrypt.txt", "decrypt.txt", null);
+        String input = args[0];
+        String output = args[1];
+        String algorithm = args[2]; // crypt or decrypt
+        String cipher = args[3]; // ROT11 or Polybius
 
-        System.out.println("\n"+"Test ROT11:");
-        String test = "I 12 lat.";
-        String test2 = "T CD wl4.";
-        ROT11 r1 = new ROT11();
-        System.out.println(r1.crypt(test));
-        System.out.println(r1.decrypt(test2));
-
-        System.out.println("\n"+"Test Polibiusz:");
-        String test3 = "Ala ma kota";
-        String test4 = "113111 3211 25344411";
-        Polibiusz pol1 = new Polibiusz();
-        System.out.println(pol1.crypt(test3));
-        System.out.println(pol1.decrypt(test4)); 
+        if(cipher.equals("rot")){
+            ROT11 rot = new ROT11();
+            Cryptographer obj = new Cryptographer();
+            if(algorithm.equals("crypt")){
+                obj.cryptfile(input, output, rot);
+            }
+            else if(algorithm.equals("decrypt")){
+                obj.decryptfile(input, output, rot);
+            }
+            else{
+                System.out.println("podano bledny argument!");
+            }
+        }
+        if(cipher.equalsIgnoreCase("Polibiusz")){
+            Polibiusz pol = new Polibiusz();
+            Cryptographer obj = new Cryptographer();
+            if(algorithm.equals("crypt")){
+                obj.cryptfile(input, output, pol);
+            }
+            else if(algorithm.equals("decrypt")){
+                obj.decryptfile(input, output, pol);
+            }
+            else{
+                System.out.println("Podano bledny argument!");
+            }
+        }
     }
 }

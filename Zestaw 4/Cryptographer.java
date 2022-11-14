@@ -17,19 +17,16 @@ public class Cryptographer {
                 changed += (char)i;
                 i++;
             }
-
-            System.out.println(changed);
-            fw.write(changed);
+            System.out.println(algorithm.crypt(changed));
+            fw.write(algorithm.crypt(changed));
 
             fw.close();
             fr.close();
-            System.out.println("przeczytalismy plik i go zapisalismy");
+            // System.out.println("przeczytalismy plik i go zapisalismy");
         } 
         catch (IOException e1) {
             e1.printStackTrace();
         }
-
-        // Algorithm.crypt(input) -> output.txt
     }
 
     public void decryptfile(String path_to_file_in, String path_to_file_out, Algorithm algorithm) throws FileNotFoundException{
@@ -44,18 +41,15 @@ public class Cryptographer {
                 changed += (char)i;
                 i++;
             }
-
-            System.out.println(changed);
-            fw.write(changed);
+            System.out.println(algorithm.decrypt(changed));
+            fw.write(algorithm.decrypt(changed));
 
             fw.close();
             fr.close();
-            System.out.println("przeczytalismy plik i go zapisalismy");
+            // System.out.println("przeczytalismy plik i go zapisalismy");
         } 
         catch (IOException e1) {
             e1.printStackTrace();
         }
-
-        // Algorithm.decrpt(input) -> output.txt
     }
 }
