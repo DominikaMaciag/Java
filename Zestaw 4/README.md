@@ -26,8 +26,4 @@ Klasa powinna realizować algorytm szyfrujący Polibiusza. Nie szyfrujemy spacji
 Poniżej przykład wywołania programu:
 ```
 java Main /home/sbk/do_szyfrowania.txt /home/sbk/wynik.txt crypt rot 
-Przykładowy plik do zaszyfrowania: tocrypt.txt
-Przykładowe wyjście dla algorytmu ROT11: decrypt.txt
-Przykładowy plik dla Polibiusza (zakładamy że nie ma w nim znaków specjalnych i cyfr innych niż znak nowej linii i spacja): poli-input.txt
-Przykładowe wyjście dla Polibiusza z przykładu powyżej: poli-output.txt
 ```
