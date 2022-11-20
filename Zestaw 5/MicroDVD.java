@@ -8,37 +8,57 @@ public class MicroDVD {
     void delay(String in, String out,int delay, int fps){
         String read = "";
         String liczba = "";
-        int i;
+        int i, liczbaInt;
 
         try {
             FileReader fr = new FileReader(in);
             FileWriter fw = new FileWriter(out);
 
-            while((i = fr.read()) != -1) {
-                if((char)i!='}'){
+            while(true) {
+                //pierwsze {}
+                while((i = fr.read()) != '}' && i!=-1){
                     if((char)i=='{'){
                         read += (char)i;
                     }
                     else {
                         liczba += (char)i;
                     }
-                    // System.out.println("liczba to" + liczba);
                 }
-                else{
-                    int liczbaInt = Integer.parseInt(liczba)+((delay*fps)/1000);
+                if ( i != -1){
+                    liczbaInt = Integer.parseInt(liczba)+((delay*fps)/1000);
                     read += Integer.toString(liczbaInt);
-                    System.out.println("read"+read);
-                    break;
-                }
-                
-            }
-            //System.out.println(delay(changed));
-            //fw.write(algorithm.crypt(changed));
-            fw.write((read));
+                    read+= (char)i;
+                    // System.out.println("read"+read);
+                    liczba = "";
+                    
+                    //drugie {}
+                    while((i = fr.read()) != '}'){
+                        if((char)i=='{'){
+                            read += (char)i;
+                        }
+                        else {
+                            liczba += (char)i;
+                        }
+                    }
+                    liczbaInt = Integer.parseInt(liczba)+((delay*fps)/1000);
+                    read += Integer.toString(liczbaInt);
+                    read+= (char)i;
+                    // System.out.println("read"+read);
+                    liczba = "";
 
+                    //tekst 
+                    while((i = fr.read()) != '\n' ){
+                        read += (char)i;
+                    }
+                    read+= (char)'\n';
+                    // System.out.println("read"+read);
+                }
+                else break;
+            }
+
+            fw.write((read));
             fw.close();
             fr.close();
-            // System.out.println("przeczytalismy plik i go zapisalismy");
         } 
         catch (IOException e1) {
             e1.printStackTrace();
