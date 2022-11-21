@@ -5,7 +5,7 @@ Pierwsza liczba to numer klatki pojawienia się napisu, druga to numer klatki zn
 Program powinien posiadać metodę delay(String in, String out,int delay, int fps) wykonującą opóźnienie (lub przyspieszenie) napisów o podaną ilość milisekund
 w zależności od tego jaki film ma framerate.
 
-< br / >
+
 Program powinien przyjmować jako parametry cztery wartości: ścieżkę do pliku wejściowego, ścieżkę do pliku wyjściowego i liczbę milisekund i framerate. 
 Metoda delay powinna wyrzucać wyjątek gdy w pliku pojawi się niepoprana sekwencja znaków. 
 Np. zamiast {1234}{4565} pojawia się {sdfg}{33ff}, lub gdy sekwencje klatek są niepoprawne np. {123344}{12}
