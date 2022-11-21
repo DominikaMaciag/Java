@@ -5,14 +5,15 @@ import java.io.FileWriter;
 
 public class MicroDVD {
     
-    void delay(String in, String out,int delay, int fps){
+    void delay(String in, String out,int delay, int fps) throws IOException{
         String read = "";
         String liczba = "";
-        int i, liczbaInt;
-
+        int i, liczbaInt, liczba1, liczba2;
+        
         try {
             FileReader fr = new FileReader(in);
             FileWriter fw = new FileWriter(out);
+            
 
             while(true) {
                 //pierwsze {}
@@ -21,14 +22,22 @@ public class MicroDVD {
                         read += (char)i;
                     }
                     else {
-                        liczba += (char)i;
+                        if ( Character.isDigit((char)i)){
+                           liczba += (char)i; 
+                        }
+                        else {
+                            fw.close();
+                            fr.close();
+                            throw new NumberFormatException("Character is not a number");
+                        }
                     }
                 }
                 if ( i != -1){
                     liczbaInt = Integer.parseInt(liczba)+((delay*fps)/1000);
                     read += Integer.toString(liczbaInt);
                     read+= (char)i;
-                    // System.out.println("read"+read);
+                    // System.out.println("liczba1: "+liczba);
+                    liczba1 = Integer.valueOf(liczba);
                     liczba = "";
                     
                     //drugie {}
@@ -37,13 +46,27 @@ public class MicroDVD {
                             read += (char)i;
                         }
                         else {
-                            liczba += (char)i;
+                            if ( Character.isDigit((char)i)){
+                               liczba += (char)i; 
+                            }
+                            else {
+                                fw.close();
+                                fr.close();
+                                throw new NumberFormatException("Character is not a number");
+                            }
                         }
                     }
                     liczbaInt = Integer.parseInt(liczba)+((delay*fps)/1000);
                     read += Integer.toString(liczbaInt);
                     read+= (char)i;
-                    // System.out.println("read"+read);
+                    
+                    liczba2 = Integer.parseInt(liczba);
+                    // System.out.println("liczba1: "+liczba1 + "liczba2: " + liczba2);
+                    if (liczba2 < liczba1){
+                        fw.close();
+                        fr.close();
+                        throw new IOException("Wrong sequence of frames");
+                    }
                     liczba = "";
 
                     //tekst 
@@ -53,7 +76,9 @@ public class MicroDVD {
                     read+= (char)'\n';
                     // System.out.println("read"+read);
                 }
-                else break;
+                else {
+                    break;
+                }
             }
 
             fw.write((read));
