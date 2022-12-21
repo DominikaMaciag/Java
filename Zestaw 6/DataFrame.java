@@ -12,6 +12,9 @@ public class DataFrame {
         }
     }
 
+    public DataFrame() {
+    }
+
     public void addRow(String[] values){
         for(int i  = 0; i < columns.size(); i++){
             columns.get(i).addValue(values[i]);
@@ -96,7 +99,6 @@ public class DataFrame {
         a.apply(s);
     }
 
-    // Zmodyfikuj kod funkcji apply z DataFrame tak aby wykonywała się równolegle na wszystkich procesorach maszyny.
     public void apply(Applayable a, String name, int njobs){
         Series s = null;
         for(int i=0; i < columns.size(); i++){
@@ -122,22 +124,24 @@ public class DataFrame {
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        //TODO: zbierz wyniki
-
     }
 
     class ApplayableThread extends Thread{
         Series result;
+        Applayable task;
         public ApplayableThread(Series s, Applayable task){
-            //TODO
+            this.task = task;
+            this.result = s;
         }
+
+        public ApplayableThread() {
+        }
+
         @Override
         public void run() {
-            //TODO
             System.out.println("Obliczam");
+            task.apply(result);
 
         }
     }
-    
 }

@@ -4,14 +4,14 @@
 
 public class Adder implements Applayable
 {
-    private final String toAdd;
-    public Adder(String toAdd){
+    private final Series toAdd;
+    public Adder(Series toAdd){
         this.toAdd = toAdd;
     }
     @Override
     public void apply(Series s) {
-        for(Value v: s.values){
-            Int nv = (Int)new Int().create(toAdd);
+        for(int i=0; i<s.values.size(); i++){
+            s.values.set(i,s.values.get(i).add(toAdd.values.get(i))); 
         }
     }
 }
