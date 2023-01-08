@@ -1,4 +1,8 @@
 import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Bees extends Thread{
@@ -42,9 +46,21 @@ public class Bees extends Thread{
                 beehive.flyingOut(entrance, id); // pszczoła przeszła przez wyjście
                 stayingOut();  // pszczoła zostaje na zewnątrz 
             }
-            System.out.println("Pszczoła"+ id + sumOftimeWaitingIn + " " + numberOfFlyingIn);
+            // ** Informacja: czas jest podany w milisekundach
+            // w pliku zapisujemy dane na temat średniego czasu wlotu/wylotu
+            // oraz ilość wlotów/wylotów każdej pszczoły
+            File log = new File("log.txt");
+            if(log.exists()==false){
+                log.createNewFile();
+            }
+            PrintWriter out = new PrintWriter(new FileWriter(log, true));
+            out.append("Pszczoła o id: "+ id + " czas średni na wlot (ms): " + sumOftimeWaitingIn/numberOfFlyingIn 
+            + " ilość wlotów: " + numberOfFlyingIn + "\n");
+            out.append("Pszczoła o id: "+ id + " czas średni na wylot (ms): " + sumOftimeWaitingOut/numberOfFlyingOut 
+            + " ilość wylotów: " + numberOfFlyingOut + "\n");
+            out.close();
         } 
-        catch (InterruptedException e) {
+        catch (InterruptedException | IOException e) {
             e.printStackTrace();
         } 
     }

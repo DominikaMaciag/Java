@@ -1,0 +1,10 @@
+Pszczoła o id: 0 czas średni na wlot (ms): 261 ilość wlotów: 4
+Pszczoła o id: 0 czas średni na wylot (ms): 5 ilość wylotów: 4
+Pszczoła o id: 1 czas średni na wlot (ms): 10 ilość wlotów: 4
+Pszczoła o id: 1 czas średni na wylot (ms): 4 ilość wylotów: 4
+Pszczoła o id: 2 czas średni na wlot (ms): 268 ilość wlotów: 4
+Pszczoła o id: 2 czas średni na wylot (ms): 2 ilość wylotów: 4
+Pszczoła o id: 3 czas średni na wlot (ms): 7 ilość wlotów: 5
+Pszczoła o id: 3 czas średni na wylot (ms): 3 ilość wylotów: 5
+Pszczoła o id: 4 czas średni na wlot (ms): 767 ilość wlotów: 4
+Pszczoła o id: 4 czas średni na wylot (ms): 2 ilość wylotów: 4
