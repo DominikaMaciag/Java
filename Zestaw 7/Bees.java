@@ -4,46 +4,65 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Bees extends Thread{
     Beehive beehive;
     int id;
+    long timeOfExcecution;
+    long timeWaitingIn;
+    long sumOftimeWaitingIn=0;
+    long timeWaitingOut;
+    long sumOftimeWaitingOut=0;
+    int numberOfFlyingIn=0;
+    int numberOfFlyingOut=0;
     
     public void run(){
         int entrance = 0;
-
+        long timeBegin = System.currentTimeMillis();
         try {
-            while(true){
+            while(System.currentTimeMillis()-timeBegin<timeOfExcecution*1000){
                 // przyjmuję, że pszczoły zaczynają od próby wlecenia do któregoś z wejść ula
-                entrance = beehive.flying_in(id);
-                passing_through(); // pszczoła przechodzi przez wejście
-                beehive.flying_out(entrance, id); // pszczoła przeszła przez wejście
-                staying_in(); // pszczoła czeka w ulu
-                entrance = beehive.flying_in(id); // pszczoła wybiera wyjście
-                passing_through(); // pszczoła przechodzi przez wyjście
-                beehive.flying_out(entrance, id); // pszczoła przeszła przez wyjście
-                staying_out();  // pszczoła zostaje na zewnątrz 
+                long startTime = System.currentTimeMillis();
+                entrance = beehive.flyingIn(id);
+                long stopTime = System.currentTimeMillis();
+                timeWaitingIn = stopTime - startTime;
+                sumOftimeWaitingIn += timeWaitingIn;
+                numberOfFlyingIn ++;
+                // System.out.println("     ---->czas oczekiwania in: " + (timeWaitingIn) + " in: " + numberOfFlyingIn);
+
+                passingThrough(); // pszczoła przechodzi przez wejście
+                beehive.flyingOut(entrance, id); // pszczoła przeszła przez wejście
+                stayingIn(); // pszczoła czeka w ulu
+
+                long startTimeOut = System.currentTimeMillis();
+                entrance = beehive.flyingIn(id); // pszczoła wybiera wyjście
+                long stopTimeOut = System.currentTimeMillis();
+                timeWaitingOut = stopTimeOut - startTimeOut;
+                sumOftimeWaitingOut += timeWaitingOut;
+                numberOfFlyingOut ++;
+                // System.out.println("     ---->czas oczekiwania out: " + (timeWaitingOut)  + " out: " + numberOfFlyingOut);
+
+                passingThrough(); // pszczoła przechodzi przez wyjście
+                beehive.flyingOut(entrance, id); // pszczoła przeszła przez wyjście
+                stayingOut();  // pszczoła zostaje na zewnątrz 
             }
-            
-        } catch (InterruptedException e) {
+            System.out.println("Pszczoła"+ id + sumOftimeWaitingIn + " " + numberOfFlyingIn);
+        } 
+        catch (InterruptedException e) {
             e.printStackTrace();
         } 
-
     }
 
     // wejście lub wyjście z ula
-    void passing_through() throws InterruptedException{
-        // System.out.println("Pszczola o id: "+ id + " przechodzi przez drzwi");
+    void passingThrough() throws InterruptedException{
         TimeUnit.SECONDS.sleep(1); // pszczoła wlatuje/wylatuje przez 1 sekundę 
     }
 
     // przebywa w ulu 1-5 sekund:
-    void staying_in() throws InterruptedException{
+    void stayingIn() throws InterruptedException{
         int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1);
         TimeUnit.SECONDS.sleep(randomNum);
-        // System.out.println("Pszczola o id: "+ id + " przebywa w ulu " + randomNum + " sekund" );
     }
 
     // przebywa na zewnątrz 5-10 sekund:
-    void staying_out() throws InterruptedException{
+    void stayingOut() throws InterruptedException{
         int randomNum2 = ThreadLocalRandom.current().nextInt(5, 10 + 1);
         TimeUnit.SECONDS.sleep(randomNum2);
-        // System.out.println("Pszczola o id: "+ id + " przebywa na zewnątrz " + randomNum2 + " sekund");
     }
 }
